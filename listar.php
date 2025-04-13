@@ -50,7 +50,7 @@ $totalGeral = 0;
               </td>
               <td class="border px-4 py-2 space-y-1">
                 <a href="editar.php?id=<?= $row['id'] ?>" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white text-sm px-3 py-1 rounded">Editar</a>
-                <a href="excluir.php?id=<?= $row['id'] ?>" onclick="return confirm('Tem certeza que deseja excluir?')" class="inline-block bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded">Excluir</a>
+                <button onclick="confirmarExclusao(<?= $row['id'] ?>)" class="inline-block bg-red-500 hover:bg-red-600 text-white text-sm px-3 py-1 rounded">Excluir</button>
                 <?php if ($row['status'] === 'Pendente'): ?>
                     <button onclick="concluirCliente(<?= $row['id'] ?>, this)" class="inline-block bg-green-500 hover:bg-green-600 text-white text-sm px-3 py-1 rounded">Concluir</button>
                 <?php endif; ?>
@@ -103,6 +103,49 @@ $totalGeral = 0;
       }
     });
   }
+
+  function confirmarExclusao(id) {
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Essa ação não pode ser desfeita!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e3342f',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sim, excluir!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'excluir.php?id=' + id;
+      }
+    });
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const sucesso = urlParams.get('sucesso');
+
+  if (sucesso === 'cadastro') {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: 'Cliente cadastrado com sucesso!',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true
+    });
+  } else if (sucesso === 'edicao') {
+    Swal.fire({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      title: 'Cliente atualizado com sucesso!',
+      showConfirmButton: false,
+      timer: 2000,
+      timerProgressBar: true
+    });
+  }
+
   </script>
 
 </body>

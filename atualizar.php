@@ -27,5 +27,6 @@ $sql = "UPDATE clientes SET nome='$nome', telefone='$telefone', endereco='$ender
 $conn->query($sql);
 $conn->close();
 
-header("Location: listar.php");
-exit();
+header("Location: listar.php?sucesso=edicao");
+exit;
+

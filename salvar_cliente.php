@@ -30,6 +30,7 @@ $stmt = $conn->prepare("INSERT INTO clientes (nome, telefone, endereco, servico,
 $stmt->bind_param("ssssd", $nome, $telefone, $endereco, $servicosStr, $precoTotal);
 $stmt->execute();
 
-header("Location: index.php");
-exit();
+header("Location: listar.php?sucesso=cadastro");
+exit;
+
 ?>
